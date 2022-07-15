@@ -28,7 +28,7 @@ export  function ShowData(props) {
     else return null
 }
     return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center bg-slate-100'>
         <div className='font-medium'>
             <h1 className='text-gray-600 text-center font-bold'>Pollution Data of {props.city}, {props.state}, {props.country}</h1>
             <br/>

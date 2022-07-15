@@ -6,6 +6,7 @@ import { TextField, Button } from '@mui/material'
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import { apikey } from './ApiKey';
 import { ShowData } from './ShowData';
+import ShowImg from './ShowImg';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Body() {
@@ -21,7 +22,7 @@ export default function Body() {
 
 
     async function sendDataToFetch() {
-
+        try{
         let urlgeocode = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apikey;
 
         await axios.get(urlgeocode).then(response => {
@@ -32,7 +33,7 @@ export default function Body() {
         ).catch(function error(err) {
             console.log(err)
         })
-
+    }catch(err){toast.error('Inalid Input !')};
         // // setTimeout(()=>{
         // //     fetchPollutionData();
         // // },2000);
@@ -85,9 +86,9 @@ export default function Body() {
                     <Button className='' onClick={handleSubmitCity} variant="contained" startIcon={<AddLocationIcon />}>Search</Button>
                     {/* </button> */}
                 </div>
-
                 
-                    {pollutionData ? 
+                
+                    {pollutionData && geoData.length ? 
                     pollutionData["list"] ?
                     <ShowData dt={temp}
                     state={geoData["0"]["state"]}
@@ -102,8 +103,8 @@ export default function Body() {
                     pm10={pollutionData["list"]["0"]["components"]["pm10"]}
                     nh3={pollutionData["list"]["0"]["components"]["nh3"]}
                     aqi={pollutionData["list"]["0"]["main"]["aqi"]}
-                /> : null : null}
-                    
+                /> : null : <ShowImg/>}
+                
             </div>
             {<ToastContainer
                 position="top-right"
